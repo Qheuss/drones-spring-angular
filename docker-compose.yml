@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: spring1-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgresuser
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: spring1db
+    ports:
+      - '5433:5432'
+    volumes:
+      - spring1-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgresuser -d spring1db']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  spring1-postgres-data:
