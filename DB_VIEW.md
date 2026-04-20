@@ -1,4 +1,4 @@
-# View Database Content
+# View Drone Database Content
 
 This project uses PostgreSQL from Docker with:
 
@@ -25,11 +25,13 @@ List all tables:
 Check data in component tables:
 
 ```sql
-SELECT * FROM gpus;
-SELECT * FROM cpus;
-SELECT * FROM ram_modules;
-SELECT * FROM motherboards;
-SELECT * FROM psus;
+SELECT * FROM drones;
+SELECT * FROM motors;
+SELECT * FROM flight_controllers;
+SELECT * FROM cameras;
+SELECT * FROM frames;
+SELECT * FROM batteries;
+SELECT * FROM props;
 ```
 
 Exit psql:
@@ -54,4 +56,11 @@ Start DB service if needed:
 
 ```bash
 docker compose up -d postgres
+```
+
+If need to destroy and rebuild the db:
+
+```bash
+docker compose down -v
+docker compose up -d
 ```

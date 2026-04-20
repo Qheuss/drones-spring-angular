@@ -8,11 +8,11 @@
 		<version>4.0.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.test</groupId>
+	<groupId>com.drones</groupId>
 	<artifactId>spring1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>Drone Fleet Manager</name>
+	<description>Spring Boot project for a drone fleet domain model</description>
 	<url/>
 	<licenses>
 		<license/>
