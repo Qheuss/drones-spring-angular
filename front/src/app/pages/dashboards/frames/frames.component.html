@@ -1,0 +1,19 @@
+<h1>Frames</h1>
+<div class="card">
+    <p-table [value]="frames" [tableStyle]="{ 'min-width': '30rem' }">
+        <ng-template #header>
+            <tr>
+                <th>ID</th>
+                <th>Model</th>
+                <th>Material</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-frame>
+            <tr>
+                <td>{{ frame.id }}</td>
+                <td>{{ frame.model }}</td>
+                <td>{{ frame.material }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

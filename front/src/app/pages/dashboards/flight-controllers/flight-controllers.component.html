@@ -1,0 +1,23 @@
+<h1>Flight Controllers</h1>
+<div class="card">
+    <p-table [value]="flightControllers" [tableStyle]="{ 'min-width': '40rem' }">
+        <ng-template #header>
+            <tr>
+                <th>ID</th>
+                <th>Model</th>
+                <th>Channel Count</th>
+                <th>Control Link Protocol</th>
+                <th>Control Mode</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-controller>
+            <tr>
+                <td>{{ controller.id }}</td>
+                <td>{{ controller.model }}</td>
+                <td>{{ controller.channelCount }}</td>
+                <td>{{ controller.controlLinkProtocol }}</td>
+                <td>{{ controller.controlMode }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

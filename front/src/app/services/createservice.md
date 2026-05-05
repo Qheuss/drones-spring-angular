@@ -1,0 +1,1 @@
+npx ng generate service nameoftheservice

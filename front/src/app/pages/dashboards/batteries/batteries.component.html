@@ -1,0 +1,19 @@
+<h1>Batteries</h1>
+<div class="card">
+    <p-table [value]="batteries" [tableStyle]="{ 'min-width': '30rem' }">
+        <ng-template #header>
+            <tr>
+                <th>ID</th>
+                <th>Model</th>
+                <th>Capacity (mAh)</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-battery>
+            <tr>
+                <td>{{ battery.id }}</td>
+                <td>{{ battery.model }}</td>
+                <td>{{ battery.capacityMah }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

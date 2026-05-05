@@ -1,0 +1,19 @@
+<h1>Cameras</h1>
+<div class="card">
+    <p-table [value]="cameras" [tableStyle]="{ 'min-width': '30rem' }">
+        <ng-template #header>
+            <tr>
+                <th>ID</th>
+                <th>Model</th>
+                <th>Resolution (MP)</th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-camera>
+            <tr>
+                <td>{{ camera.id }}</td>
+                <td>{{ camera.model }}</td>
+                <td>{{ camera.resolutionMp }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

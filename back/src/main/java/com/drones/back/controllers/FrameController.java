@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @CrossOrigin(
-  origins = { "http://localhost:4200/" },
+  origins = { "http://localhost:4200" },
   methods = {
     RequestMethod.GET,
     RequestMethod.POST,
