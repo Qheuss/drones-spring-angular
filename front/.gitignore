@@ -1,0 +1,39 @@
+# Angular
+/dist/
+/build/
+/.angular/
+
+# Dependencies
+/node_modules/
+package-lock.json
+yarn.lock
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+/coverage/
+*.lcov
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+*.js.map
+*.js
+!*.config.js
+!karma.conf.js
+
+# OS
+Thumbs.db
+
+# Misc
+.cache/
+*.log

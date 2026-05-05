@@ -1,0 +1,9 @@
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-ecommerce-dashboard',
+    standalone: true,
+    imports: [],
+    templateUrl: './home.component.html',
+})
+export class HomeComponent {}
