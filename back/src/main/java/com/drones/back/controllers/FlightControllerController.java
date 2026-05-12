@@ -1,6 +1,6 @@
 package com.drones.back.controllers;
 
-import com.drones.back.entities.FlightController;
+import com.drones.back.dto.FlightControllerDto;
 import com.drones.back.services.FlightControllerService;
 import java.util.List;
 import java.util.Optional;
@@ -36,18 +36,18 @@ public class FlightControllerController {
   private final FlightControllerService service;
 
   @GetMapping("/all")
-  public List<FlightController> findAll() {
+  public List<FlightControllerDto> findAll() {
     return service.findAll();
   }
 
   @GetMapping("/{id}")
-  public Optional<FlightController> findById(@PathVariable("id") Long id) {
+  public Optional<FlightControllerDto> findById(@PathVariable("id") Long id) {
     return service.findById(id);
   }
 
   @PostMapping("/new")
   public void addFlightController(
-    @RequestBody FlightController flightController
+    @RequestBody FlightControllerDto flightController
   ) {
     service.addFlightController(flightController);
   }

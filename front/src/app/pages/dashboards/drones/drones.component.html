@@ -1,4 +1,3 @@
-<h1>Drones</h1>
 <div class="card">
     <p-table [value]="drones" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
@@ -22,12 +21,12 @@
             <tr>
                 <td>{{ drone.id }}</td>
                 <td>{{ drone.name }}</td>
-                <td>{{ drone.prop.model }}</td>
-                <td>{{ drone.motor.model }}</td>
-                <td>{{ drone.flightController.model }}</td>
-                <td>{{ drone.camera.model }}</td>
-                <td>{{ drone.frame.model }}</td>
-                <td>{{ drone.battery.model }}</td>
+                <td>{{ drone.prop?.model ?? '-' }}</td>
+                <td>{{ drone.motor?.model ?? '-' }}</td>
+                <td>{{ drone.flightController?.model ?? '-' }}</td>
+                <td>{{ drone.camera?.model ?? '-' }}</td>
+                <td>{{ drone.frame?.model ?? '-' }}</td>
+                <td>{{ drone.battery?.model ?? '-' }}</td>
                 <td>{{ drone.videoLinkType }}</td>
                 <td>{{ drone.propsCount }}</td>
                 <td>{{ drone.weightGrams ?? '-' }}</td>

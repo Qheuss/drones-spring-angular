@@ -9,12 +9,12 @@ import { VideoLinkType } from './enums/VideoLinkType';
 export interface IDrone {
     id: number;
     name: string;
-    prop: IProp;
-    motor: IMotor;
-    flightController: IFlightController;
-    camera: ICamera;
-    frame: IFrame;
-    battery: IBattery;
+    prop: IProp | null;
+    motor: IMotor | null;
+    flightController: IFlightController | null;
+    camera: ICamera | null;
+    frame: IFrame | null;
+    battery: IBattery | null;
     videoLinkType: VideoLinkType;
     propsCount: number;
     weightGrams?: number;

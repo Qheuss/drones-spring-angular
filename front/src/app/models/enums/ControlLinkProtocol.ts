@@ -1,6 +1,8 @@
 export enum ControlLinkProtocol {
-    PPM = 'PPM',
+    ELRS = 'ELRS',
+    CROSSFIRE = 'CROSSFIRE',
+    FRSKY = 'FRSKY',
     SBUS = 'SBUS',
     IBUS = 'IBUS',
-    DJI_PROPRIETARY = 'DJI_PROPRIETARY'
+    DSMX = 'DSMX'
 }

@@ -1,6 +1,7 @@
 package com.drones.back.services;
 
-import com.drones.back.entities.Motor;
+import com.drones.back.dto.DtoMapper;
+import com.drones.back.dto.MotorDto;
 import com.drones.back.repositories.MotorRepository;
 import java.util.List;
 import java.util.Optional;
@@ -13,16 +14,16 @@ public class MotorService {
 
   private final MotorRepository repository;
 
-  public List<Motor> findAll() {
-    return repository.findAll();
+  public List<MotorDto> findAll() {
+    return repository.findAll().stream().map(DtoMapper::toDto).toList();
   }
 
-  public Optional<Motor> findById(Long id) {
-    return repository.findById(id);
+  public Optional<MotorDto> findById(Long id) {
+    return repository.findById(id).map(DtoMapper::toDto);
   }
 
-  public void addMotor(Motor motor) {
-    repository.save(motor);
+  public void addMotor(MotorDto motor) {
+    repository.save(DtoMapper.toEntity(motor));
   }
 
   public void deleteById(Long id) {

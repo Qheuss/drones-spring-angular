@@ -1,6 +1,6 @@
 package com.drones.back.controllers;
 
-import com.drones.back.entities.Drone;
+import com.drones.back.dto.DroneDto;
 import com.drones.back.services.DroneService;
 import java.util.List;
 import java.util.Optional;
@@ -36,17 +36,17 @@ public class DroneController {
   private final DroneService service;
 
   @GetMapping("/all")
-  public List<Drone> findAll() {
+  public List<DroneDto> findAll() {
     return service.findAll();
   }
 
   @GetMapping("/{id}")
-  public Optional<Drone> findById(@PathVariable("id") Long id) {
+  public Optional<DroneDto> findById(@PathVariable("id") Long id) {
     return service.findById(id);
   }
 
   @PostMapping("/new")
-  public void addDrone(@RequestBody Drone drone) {
+  public void addDrone(@RequestBody DroneDto drone) {
     service.addDrone(drone);
   }
 

@@ -15,8 +15,8 @@ export class MotorService {
         return this.http.get<IMotor[]>(`${this.apiUrl}/all`);
     }
 
-    getById(id: number): Observable<IMotor> {
-        return this.http.get<IMotor>(`${this.apiUrl}/${id}`);
+    getById(id: number): Observable<IMotor | null> {
+        return this.http.get<IMotor | null>(`${this.apiUrl}/${id}`);
     }
 
     addMotor(motor: IMotor): Observable<void> {

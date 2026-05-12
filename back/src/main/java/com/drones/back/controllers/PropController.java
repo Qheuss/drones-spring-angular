@@ -1,6 +1,6 @@
 package com.drones.back.controllers;
 
-import com.drones.back.entities.Prop;
+import com.drones.back.dto.PropDto;
 import com.drones.back.services.PropService;
 import java.util.List;
 import java.util.Optional;
@@ -36,17 +36,17 @@ public class PropController {
   private final PropService service;
 
   @GetMapping("/all")
-  public List<Prop> findAll() {
+  public List<PropDto> findAll() {
     return service.findAll();
   }
 
   @GetMapping("/{id}")
-  public Optional<Prop> findById(@PathVariable("id") Long id) {
+  public Optional<PropDto> findById(@PathVariable("id") Long id) {
     return service.findById(id);
   }
 
   @PostMapping("/new")
-  public void addProp(@RequestBody Prop prop) {
+  public void addProp(@RequestBody PropDto prop) {
     service.addProp(prop);
   }
 

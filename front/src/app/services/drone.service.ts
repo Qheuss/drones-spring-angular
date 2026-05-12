@@ -15,8 +15,8 @@ export class DroneService {
         return this.http.get<IDrone[]>(`${this.apiUrl}/all`);
     }
 
-    getById(id: number): Observable<IDrone> {
-        return this.http.get<IDrone>(`${this.apiUrl}/${id}`);
+    getById(id: number): Observable<IDrone | null> {
+        return this.http.get<IDrone | null>(`${this.apiUrl}/${id}`);
     }
 
     addDrone(drone: IDrone): Observable<void> {

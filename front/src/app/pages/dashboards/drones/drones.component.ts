@@ -15,9 +15,13 @@ export class DronesComponent {
     drones: IDrone[] = [];
 
     ngOnInit(): void {
-        this.droneService.getAll().subscribe((data) => {
-            this.drones = data;
+        this.droneService.getAll().subscribe({
+            next: (data) => {
+                this.drones = data;
+            },
+            error: () => {
+                console.error('Unable to load drones from the API.');
+            }
         });
-        console.log(this.drones);
     }
 }

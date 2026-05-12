@@ -1,6 +1,6 @@
 package com.drones.back.controllers;
 
-import com.drones.back.entities.Motor;
+import com.drones.back.dto.MotorDto;
 import com.drones.back.services.MotorService;
 import java.util.List;
 import java.util.Optional;
@@ -36,17 +36,17 @@ public class MotorController {
   private final MotorService service;
 
   @GetMapping("/all")
-  public List<Motor> findAll() {
+  public List<MotorDto> findAll() {
     return service.findAll();
   }
 
   @GetMapping("/{id}")
-  public Optional<Motor> findById(@PathVariable("id") Long id) {
+  public Optional<MotorDto> findById(@PathVariable("id") Long id) {
     return service.findById(id);
   }
 
   @PostMapping("/new")
-  public void addMotor(@RequestBody Motor motor) {
+  public void addMotor(@RequestBody MotorDto motor) {
     service.addMotor(motor);
   }
 

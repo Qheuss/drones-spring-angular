@@ -15,8 +15,8 @@ export class PropService {
         return this.http.get<IProp[]>(`${this.apiUrl}/all`);
     }
 
-    getById(id: number): Observable<IProp> {
-        return this.http.get<IProp>(`${this.apiUrl}/${id}`);
+    getById(id: number): Observable<IProp | null> {
+        return this.http.get<IProp | null>(`${this.apiUrl}/${id}`);
     }
 
     addProp(prop: IProp): Observable<void> {

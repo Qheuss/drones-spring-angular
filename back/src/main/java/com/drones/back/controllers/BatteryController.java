@@ -1,6 +1,6 @@
 package com.drones.back.controllers;
 
-import com.drones.back.entities.Battery;
+import com.drones.back.dto.BatteryDto;
 import com.drones.back.services.BatteryService;
 import java.util.List;
 import java.util.Optional;
@@ -36,17 +36,17 @@ public class BatteryController {
   private final BatteryService service;
 
   @GetMapping("/all")
-  public List<Battery> findAll() {
+  public List<BatteryDto> findAll() {
     return service.findAll();
   }
 
   @GetMapping("/{id}")
-  public Optional<Battery> findById(@PathVariable("id") Long id) {
+  public Optional<BatteryDto> findById(@PathVariable("id") Long id) {
     return service.findById(id);
   }
 
   @PostMapping("/new")
-  public void addBattery(@RequestBody Battery battery) {
+  public void addBattery(@RequestBody BatteryDto battery) {
     service.addBattery(battery);
   }
 

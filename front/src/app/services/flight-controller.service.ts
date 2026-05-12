@@ -15,8 +15,8 @@ export class FlightControllerService {
         return this.http.get<IFlightController[]>(`${this.apiUrl}/all`);
     }
 
-    getById(id: number): Observable<IFlightController> {
-        return this.http.get<IFlightController>(`${this.apiUrl}/${id}`);
+    getById(id: number): Observable<IFlightController | null> {
+        return this.http.get<IFlightController | null>(`${this.apiUrl}/${id}`);
     }
 
     addFlightController(flightController: IFlightController): Observable<void> {

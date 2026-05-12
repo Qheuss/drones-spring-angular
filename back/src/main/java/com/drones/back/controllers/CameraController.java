@@ -1,6 +1,6 @@
 package com.drones.back.controllers;
 
-import com.drones.back.entities.Camera;
+import com.drones.back.dto.CameraDto;
 import com.drones.back.services.CameraService;
 import java.util.List;
 import java.util.Optional;
@@ -36,17 +36,17 @@ public class CameraController {
   private final CameraService service;
 
   @GetMapping("/all")
-  public List<Camera> findAll() {
+  public List<CameraDto> findAll() {
     return service.findAll();
   }
 
   @GetMapping("/{id}")
-  public Optional<Camera> findById(@PathVariable("id") Long id) {
+  public Optional<CameraDto> findById(@PathVariable("id") Long id) {
     return service.findById(id);
   }
 
   @PostMapping("/new")
-  public void addCamera(@RequestBody Camera camera) {
+  public void addCamera(@RequestBody CameraDto camera) {
     service.addCamera(camera);
   }
 

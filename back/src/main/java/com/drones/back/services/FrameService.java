@@ -1,6 +1,7 @@
 package com.drones.back.services;
 
-import com.drones.back.entities.Frame;
+import com.drones.back.dto.DtoMapper;
+import com.drones.back.dto.FrameDto;
 import com.drones.back.repositories.FrameRepository;
 import java.util.List;
 import java.util.Optional;
@@ -13,16 +14,16 @@ public class FrameService {
 
   private final FrameRepository repository;
 
-  public List<Frame> findAll() {
-    return repository.findAll();
+  public List<FrameDto> findAll() {
+    return repository.findAll().stream().map(DtoMapper::toDto).toList();
   }
 
-  public Optional<Frame> findById(Long id) {
-    return repository.findById(id);
+  public Optional<FrameDto> findById(Long id) {
+    return repository.findById(id).map(DtoMapper::toDto);
   }
 
-  public void addFrame(Frame frame) {
-    repository.save(frame);
+  public void addFrame(FrameDto frame) {
+    repository.save(DtoMapper.toEntity(frame));
   }
 
   public void deleteById(Long id) {

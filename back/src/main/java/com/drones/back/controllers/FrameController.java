@@ -1,6 +1,6 @@
 package com.drones.back.controllers;
 
-import com.drones.back.entities.Frame;
+import com.drones.back.dto.FrameDto;
 import com.drones.back.services.FrameService;
 import java.util.List;
 import java.util.Optional;
@@ -36,17 +36,17 @@ public class FrameController {
   private final FrameService service;
 
   @GetMapping("/all")
-  public List<Frame> findAll() {
+  public List<FrameDto> findAll() {
     return service.findAll();
   }
 
   @GetMapping("/{id}")
-  public Optional<Frame> findById(@PathVariable("id") Long id) {
+  public Optional<FrameDto> findById(@PathVariable("id") Long id) {
     return service.findById(id);
   }
 
   @PostMapping("/new")
-  public void addFrame(@RequestBody Frame frame) {
+  public void addFrame(@RequestBody FrameDto frame) {
     service.addFrame(frame);
   }
 

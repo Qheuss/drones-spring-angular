@@ -1,4 +1,4 @@
--- Seed script: 10 INSERT INTO per entity
+-- Seed script: base data plus Air75 II variants
 -- Entities: motors, flight_controllers, cameras, frames, batteries, props, drones
 
 INSERT INTO motors (model, kv_rating) VALUES ('T-Motor F60 Pro', '1950KV');
@@ -56,16 +56,38 @@ INSERT INTO batteries (model, capacity_mah) VALUES ('8S 5000mAh', 5000);
 INSERT INTO batteries (model, capacity_mah) VALUES ('6S 4000mAh', 4000);
 INSERT INTO batteries (model, capacity_mah) VALUES ('12S 10000mAh', 10000);
 
-INSERT INTO props (model, spec) VALUES ('Gemfan 51466', '5.1x4.8x3');
-INSERT INTO props (model, spec) VALUES ('HQProp 5x4x3', '5.0x4.0x3');
-INSERT INTO props (model, spec) VALUES ('Dalprop 5x4.3x3', '5.0x4.3x3');
-INSERT INTO props (model, spec) VALUES ('Ethix S3', '5.1x3.1x3');
-INSERT INTO props (model, spec) VALUES ('HQProp T5X4', '5.0x4.0x2');
-INSERT INTO props (model, spec) VALUES ('Gemfan 7035', '7.0x3.5x3');
-INSERT INTO props (model, spec) VALUES ('Master Airscrew 6040', '6.0x4.0x2');
-INSERT INTO props (model, spec) VALUES ('HQProp 8040', '8.0x4.0x2');
-INSERT INTO props (model, spec) VALUES ('Gemfan 1045', '10.0x4.5x2');
-INSERT INTO props (model, spec) VALUES ('APC 1245', '12.0x4.5x2');
+INSERT INTO props (model, spec) VALUES ('Gemfan 1614 3-Blade Propellers', '1.0mm Shaft');
+INSERT INTO props (model, spec) VALUES ('GF 1614 3-B Props', '1.0mm Shaft');
+INSERT INTO props (model, spec) VALUES ('GF 1614 3B Props', '1.0mm Shaft');
+INSERT INTO props (model, spec) VALUES ('Gemfan 51466', '3.5mm Shaft');
+INSERT INTO props (model, spec) VALUES ('HQProp 5x4x3', '5mm Shaft');
+INSERT INTO props (model, spec) VALUES ('Dalprop 5x4.3x3', '5mm Shaft');
+INSERT INTO props (model, spec) VALUES ('Gemfan 7035', '6mm Shaft');
+INSERT INTO props (model, spec) VALUES ('HQProp T5X4', '5mm Shaft');
+INSERT INTO props (model, spec) VALUES ('Master Airscrew 6040', '6mm Shaft');
+INSERT INTO props (model, spec) VALUES ('HQProp 8040', '8mm Shaft');
+INSERT INTO props (model, spec) VALUES ('Gemfan 1045', '10mm Shaft');
+INSERT INTO props (model, spec) VALUES ('APC 1245', '12mm Shaft');
+
+INSERT INTO motors (model, kv_rating) VALUES ('0802 Brushless Motors (2026) Champion', '28000KV');
+INSERT INTO motors (model, kv_rating) VALUES ('0802 Brushless Motors (2026) Racing', '25000KV');
+INSERT INTO motors (model, kv_rating) VALUES ('0802 Brushless Motors (2026) Freestyle', '22000KV');
+
+INSERT INTO flight_controllers (model, channel_count, control_link_protocol, control_mode) VALUES ('Matrix 1S 5IN1 II Brushless Flight Controller', 8, 'ELRS', 'ACRO');
+INSERT INTO flight_controllers (model, channel_count, control_link_protocol, control_mode) VALUES ('Matrix 1S 5IN1 II Brushless Flight Controller (Solder-free Version)', 8, 'ELRS', 'ACRO');
+INSERT INTO flight_controllers (model, channel_count, control_link_protocol, control_mode) VALUES ('Matrix 1S 5IN1 II Brushless Flight Controller (Solder-required Version)', 8, 'ELRS', 'ACRO');
+
+INSERT INTO cameras (model, resolution_mp) VALUES ('C03 Micro Camera', 2);
+INSERT INTO cameras (model, resolution_mp) VALUES ('C03 FPV Micro Camera', 2);
+INSERT INTO cameras (model, resolution_mp) VALUES ('C03', 2);
+
+INSERT INTO frames (model, material) VALUES ('Air75 II Brushless Whoop Frame - Transparent Purple', 'PP');
+INSERT INTO frames (model, material) VALUES ('Air75 II Brushless Whoop Frame - Transparent Blue', 'PP');
+INSERT INTO frames (model, material) VALUES ('Air75 II Brushless Whoop Frame - Black', 'PP');
+
+INSERT INTO batteries (model, capacity_mah) VALUES ('LAVA II 1S 480mAh', 480);
+INSERT INTO batteries (model, capacity_mah) VALUES ('LAVA II 1S 580mAh', 580);
+INSERT INTO batteries (model, capacity_mah) VALUES ('LAVA 1S 450mAh 75C Battery', 450);
 
 INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
 VALUES (
@@ -216,4 +238,49 @@ VALUES (
 	8600,
 	2100,
 	60
+);
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+VALUES (
+	'Air75 II Racing',
+	(SELECT id FROM flight_controllers WHERE model = 'Matrix 1S 5IN1 II Brushless Flight Controller'),
+	(SELECT id FROM cameras WHERE model = 'C03 Micro Camera'),
+	(SELECT id FROM frames WHERE model = 'Air75 II Brushless Whoop Frame - Transparent Purple'),
+	(SELECT id FROM batteries WHERE model = 'LAVA II 1S 480mAh'),
+	(SELECT id FROM motors WHERE model = '0802 Brushless Motors (2026) Racing'),
+	(SELECT id FROM props WHERE model = 'GF 1614 3B Props'),
+	'ANALOG',
+	4,
+	20,
+	75,
+	7
+);
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+VALUES (
+	'Air75 II Freestyle',
+	(SELECT id FROM flight_controllers WHERE model = 'Matrix 1S 5IN1 II Brushless Flight Controller'),
+	(SELECT id FROM cameras WHERE model = 'C03 Micro Camera'),
+	(SELECT id FROM frames WHERE model = 'Air75 II Brushless Whoop Frame - Transparent Blue'),
+	(SELECT id FROM batteries WHERE model = 'LAVA II 1S 480mAh'),
+	(SELECT id FROM motors WHERE model = '0802 Brushless Motors (2026) Freestyle'),
+	(SELECT id FROM props WHERE model = 'Gemfan 1614 3-Blade Propellers'),
+	'ANALOG',
+	4,
+	21,
+	75,
+	7
+);
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+VALUES (
+	'Air75 II Champion',
+	(SELECT id FROM flight_controllers WHERE model = 'Matrix 1S 5IN1 II Brushless Flight Controller'),
+	(SELECT id FROM cameras WHERE model = 'C03 Micro Camera'),
+	(SELECT id FROM frames WHERE model = 'Air75 II Brushless Whoop Frame - Black'),
+	(SELECT id FROM batteries WHERE model = 'LAVA II 1S 480mAh'),
+	(SELECT id FROM motors WHERE model = '0802 Brushless Motors (2026) Champion'),
+	(SELECT id FROM props WHERE model = 'Gemfan 1614 3-Blade Propellers'),
+	'ANALOG',
+	4,
+	20,
+	75,
+	7
 );

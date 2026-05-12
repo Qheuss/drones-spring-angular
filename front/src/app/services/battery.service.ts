@@ -15,8 +15,8 @@ export class BatteryService {
         return this.http.get<IBattery[]>(`${this.apiUrl}/all`);
     }
 
-    getById(id: number): Observable<IBattery> {
-        return this.http.get<IBattery>(`${this.apiUrl}/${id}`);
+    getById(id: number): Observable<IBattery | null> {
+        return this.http.get<IBattery | null>(`${this.apiUrl}/${id}`);
     }
 
     addBattery(battery: IBattery): Observable<void> {

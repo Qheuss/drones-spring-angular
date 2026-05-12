@@ -34,18 +34,18 @@ interface MenuChangeEvent {
 }
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class LayoutService {
     _config: layoutConfig = {
         ripple: false,
         preset: 'Aura',
-        primary: 'indigo',
+        primary: 'noir',
         inputStyle: 'outlined',
         surface: null,
         darkTheme: false,
         menuMode: 'static',
-        menuTheme: 'colorScheme',
+        menuTheme: 'colorScheme'
     };
 
     _state: LayoutState = {
@@ -58,7 +58,7 @@ export class LayoutService {
         configSidebarVisible: false,
         staticMenuMobileActive: false,
         menuHoverActive: false,
-        activeMenuItem: null,
+        activeMenuItem: null
     };
 
     layoutConfig = signal<layoutConfig>(this._config);
@@ -87,9 +87,7 @@ export class LayoutService {
 
     isSlimPlus = computed(() => this.layoutConfig().menuMode === 'slim-plus');
 
-    isHorizontal = computed(
-        () => this.layoutConfig().menuMode === 'horizontal',
-    );
+    isHorizontal = computed(() => this.layoutConfig().menuMode === 'horizontal');
 
     isOverlay = computed(() => this.layoutConfig().menuMode === 'overlay');
 
@@ -99,7 +97,6 @@ export class LayoutService {
         const layoutConfig = this.layoutConfig();
         return layoutConfig.menuMode === 'horizontal' || layoutConfig.menuMode === 'slim' || layoutConfig.menuMode === 'slim-plus';
     });
-
 
     private initialized = false;
 
@@ -205,14 +202,14 @@ export class LayoutService {
     showProfileSidebar() {
         this.layoutState.update((state) => ({
             ...state,
-            profileSidebarVisible: true,
+            profileSidebarVisible: true
         }));
     }
 
     showConfigSidebar() {
         this.layoutState.update((state) => ({
             ...state,
-            configSidebarVisible: true,
+            configSidebarVisible: true
         }));
     }
 

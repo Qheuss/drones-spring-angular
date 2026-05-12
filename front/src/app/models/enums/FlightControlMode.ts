@@ -1,7 +1,8 @@
 export enum FlightControlMode {
     ACRO = 'ACRO',
-    STABILIZE = 'STABILIZE',
-    ALT_HOLD = 'ALT_HOLD',
-    LOITER = 'LOITER',
-    AUTO = 'AUTO'
+    ANGLE = 'ANGLE',
+    HORIZON = 'HORIZON',
+    SELF_LEVEL = 'SELF_LEVEL',
+    HOVER = 'HOVER',
+    RTH = 'RTH'
 }

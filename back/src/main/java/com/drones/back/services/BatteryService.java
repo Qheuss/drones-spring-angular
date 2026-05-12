@@ -1,6 +1,7 @@
 package com.drones.back.services;
 
-import com.drones.back.entities.Battery;
+import com.drones.back.dto.BatteryDto;
+import com.drones.back.dto.DtoMapper;
 import com.drones.back.repositories.BatteryRepository;
 import java.util.List;
 import java.util.Optional;
@@ -13,16 +14,16 @@ public class BatteryService {
 
   private final BatteryRepository repository;
 
-  public List<Battery> findAll() {
-    return repository.findAll();
+  public List<BatteryDto> findAll() {
+    return repository.findAll().stream().map(DtoMapper::toDto).toList();
   }
 
-  public Optional<Battery> findById(Long id) {
-    return repository.findById(id);
+  public Optional<BatteryDto> findById(Long id) {
+    return repository.findById(id).map(DtoMapper::toDto);
   }
 
-  public void addBattery(Battery battery) {
-    repository.save(battery);
+  public void addBattery(BatteryDto battery) {
+    repository.save(DtoMapper.toEntity(battery));
   }
 
   public void deleteById(Long id) {

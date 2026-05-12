@@ -15,8 +15,8 @@ export class CameraService {
         return this.http.get<ICamera[]>(`${this.apiUrl}/all`);
     }
 
-    getById(id: number): Observable<ICamera> {
-        return this.http.get<ICamera>(`${this.apiUrl}/${id}`);
+    getById(id: number): Observable<ICamera | null> {
+        return this.http.get<ICamera | null>(`${this.apiUrl}/${id}`);
     }
 
     addCamera(camera: ICamera): Observable<void> {

@@ -15,8 +15,8 @@ export class FrameService {
         return this.http.get<IFrame[]>(`${this.apiUrl}/all`);
     }
 
-    getById(id: number): Observable<IFrame> {
-        return this.http.get<IFrame>(`${this.apiUrl}/${id}`);
+    getById(id: number): Observable<IFrame | null> {
+        return this.http.get<IFrame | null>(`${this.apiUrl}/${id}`);
     }
 
     addFrame(frame: IFrame): Observable<void> {
