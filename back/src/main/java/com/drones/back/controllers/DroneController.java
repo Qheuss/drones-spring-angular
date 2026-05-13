@@ -5,6 +5,9 @@ import com.drones.back.services.DroneService;
 import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
+@Slf4j
 @CrossOrigin(
   origins = { "http://localhost:4200" },
   methods = {
@@ -46,8 +50,19 @@ public class DroneController {
   }
 
   @PostMapping("/new")
-  public void addDrone(@RequestBody DroneDto drone) {
-    service.addDrone(drone);
+  public ResponseEntity<DroneDto> addDrone(@RequestBody DroneDto drone) {
+    try {
+      log.info("Creating drone: {}", drone.getName());
+      DroneDto createdDrone = service.addDrone(drone);
+      log.info("Drone created successfully with ID: {}", createdDrone.getId());
+      return ResponseEntity.status(HttpStatus.CREATED).body(createdDrone);
+    } catch (IllegalArgumentException e) {
+      log.error("Validation error when creating drone: {}", e.getMessage());
+      return ResponseEntity.badRequest().build();
+    } catch (Exception e) {
+      log.error("Error creating drone", e);
+      return ResponseEntity.internalServerError().build();
+    }
   }
 
   @DeleteMapping("/{id}")

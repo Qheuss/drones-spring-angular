@@ -174,7 +174,6 @@ public final class DtoMapper {
       return null;
     }
     Drone drone = new Drone();
-    drone.setId(dto.getId());
     drone.setName(dto.getName());
     drone.setVideoLinkType(dto.getVideoLinkType());
     drone.setPropsCount(dto.getPropsCount());

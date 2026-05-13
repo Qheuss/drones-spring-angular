@@ -1,5 +1,6 @@
 <div class="card">
-    <p-table [value]="drones" [tableStyle]="{ 'min-width': '50rem' }">
+    <app-add-drone></app-add-drone>
+    <p-table [value]="(drones$ | async) ?? []" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr>
                 <th>ID</th>

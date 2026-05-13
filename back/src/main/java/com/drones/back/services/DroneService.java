@@ -13,10 +13,12 @@ import com.drones.back.repositories.PropRepository;
 import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class DroneService {
 
   private final DroneRepository repository;
@@ -35,7 +37,8 @@ public class DroneService {
     return repository.findById(id).map(DtoMapper::toDto);
   }
 
-  public void addDrone(DroneDto drone) {
+  public DroneDto addDrone(DroneDto drone) {
+    validateDrone(drone);
     Drone entity = DtoMapper.toEntity(drone);
     entity.setProp(resolveProp(drone));
     entity.setMotor(resolveMotor(drone));
@@ -43,7 +46,9 @@ public class DroneService {
     entity.setCamera(resolveCamera(drone));
     entity.setFrame(resolveFrame(drone));
     entity.setBattery(resolveBattery(drone));
-    repository.save(entity);
+    Drone savedDrone = repository.save(entity);
+    log.debug("Drone saved with ID: {}", savedDrone.getId());
+    return DtoMapper.toDto(savedDrone);
   }
 
   public void deleteById(Long id) {
@@ -97,5 +102,22 @@ public class DroneService {
       return null;
     }
     return batteryRepository.getReferenceById(drone.getBattery().getId());
+  }
+
+  private void validateDrone(DroneDto drone) {
+    if (drone.getVideoLinkType() == null) {
+      log.warn(
+        "Drone validation failed: videoLinkType is required but was null"
+      );
+      throw new IllegalArgumentException("videoLinkType is required");
+    }
+    if (drone.getPropsCount() == null || drone.getPropsCount() <= 0) {
+      log.warn("Drone validation failed: propsCount must be greater than 0");
+      throw new IllegalArgumentException("propsCount must be greater than 0");
+    }
+    if (drone.getName() == null || drone.getName().isBlank()) {
+      log.warn("Drone validation failed: name is required");
+      throw new IllegalArgumentException("name is required");
+    }
   }
 }
