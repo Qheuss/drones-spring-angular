@@ -3,6 +3,7 @@
     <p-table [value]="(drones$ | async) ?? []" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr>
+                <th></th>
                 <th>ID</th>
                 <th>Name</th>
                 <th>Prop</th>
@@ -20,6 +21,9 @@
         </ng-template>
         <ng-template #body let-drone>
             <tr>
+                <td>
+                    <app-remove-drone [droneId]="drone.id" (droneRemoved)="onDroneRemoved()"></app-remove-drone>
+                </td>
                 <td>{{ drone.id }}</td>
                 <td>{{ drone.name }}</td>
                 <td>{{ drone.prop?.model ?? '-' }}</td>

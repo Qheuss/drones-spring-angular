@@ -1,1 +1,1 @@
-- [ ] add/delete
+- [x] add/delete drone
