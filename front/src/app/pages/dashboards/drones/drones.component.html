@@ -1,8 +1,9 @@
 <div class="card">
-    <app-add-drone></app-add-drone>
+    <app-add-drone (droneAdded)="onDroneAdded()"></app-add-drone>
     <p-table [value]="(drones$ | async) ?? []" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr>
+                <th></th>
                 <th></th>
                 <th>ID</th>
                 <th>Name</th>
@@ -23,6 +24,9 @@
             <tr>
                 <td>
                     <app-remove-drone [droneId]="drone.id" (droneRemoved)="onDroneRemoved()"></app-remove-drone>
+                </td>
+                <td>
+                    <app-update-drone [drone]="drone" (droneUpdated)="onDroneUpdated()"></app-update-drone>
                 </td>
                 <td>{{ drone.id }}</td>
                 <td>{{ drone.name }}</td>

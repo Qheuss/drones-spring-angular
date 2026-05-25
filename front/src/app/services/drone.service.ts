@@ -23,6 +23,10 @@ export class DroneService {
         return this.http.post<void>(`${this.apiUrl}/new`, drone);
     }
 
+    updateById(id: number, drone: IDrone): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${id}`, drone);
+    }
+
     deleteById(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }

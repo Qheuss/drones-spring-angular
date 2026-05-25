@@ -3,6 +3,8 @@ package com.drones.back.services;
 import com.drones.back.dto.DroneDto;
 import com.drones.back.dto.DtoMapper;
 import com.drones.back.entities.Drone;
+import com.drones.back.exceptions.NotFoundException;
+import com.drones.back.exceptions.ValidationException;
 import com.drones.back.repositories.BatteryRepository;
 import com.drones.back.repositories.CameraRepository;
 import com.drones.back.repositories.DroneRepository;
@@ -15,6 +17,7 @@ import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -37,6 +40,7 @@ public class DroneService {
     return repository.findById(id).map(DtoMapper::toDto);
   }
 
+  @Transactional
   public DroneDto addDrone(DroneDto drone) {
     validateDrone(drone);
     Drone entity = DtoMapper.toEntity(drone);
@@ -55,18 +59,57 @@ public class DroneService {
     repository.deleteById(id);
   }
 
+  @Transactional
+  public DroneDto updateDrone(Long id, DroneDto drone) {
+    validateDrone(drone);
+    return repository
+      .findById(id)
+      .map(existing -> {
+        existing.setName(drone.getName());
+        existing.setVideoLinkType(drone.getVideoLinkType());
+        existing.setPropsCount(drone.getPropsCount());
+        existing.setWeightGrams(drone.getWeightGrams());
+        existing.setWheelbaseMm(drone.getWheelbaseMm());
+        existing.setFlightTimeMinutes(drone.getFlightTimeMinutes());
+        existing.setProp(resolveProp(drone));
+        existing.setMotor(resolveMotor(drone));
+        existing.setFlightController(resolveFlightController(drone));
+        existing.setCamera(resolveCamera(drone));
+        existing.setFrame(resolveFrame(drone));
+        existing.setBattery(resolveBattery(drone));
+        Drone updated = repository.save(existing);
+        log.debug("Drone updated with ID: {}", updated.getId());
+        return DtoMapper.toDto(updated);
+      })
+      .orElseThrow(() ->
+        new NotFoundException("Drone not found with ID: " + id)
+      );
+  }
+
   private com.drones.back.entities.Prop resolveProp(DroneDto drone) {
     if (drone.getProp() == null || drone.getProp().getId() == null) {
       return null;
     }
-    return propRepository.getReferenceById(drone.getProp().getId());
+    return propRepository
+      .findById(drone.getProp().getId())
+      .orElseThrow(() ->
+        new NotFoundException(
+          "Prop not found with ID: " + drone.getProp().getId()
+        )
+      );
   }
 
   private com.drones.back.entities.Motor resolveMotor(DroneDto drone) {
     if (drone.getMotor() == null || drone.getMotor().getId() == null) {
       return null;
     }
-    return motorRepository.getReferenceById(drone.getMotor().getId());
+    return motorRepository
+      .findById(drone.getMotor().getId())
+      .orElseThrow(() ->
+        new NotFoundException(
+          "Motor not found with ID: " + drone.getMotor().getId()
+        )
+      );
   }
 
   private com.drones.back.entities.FlightController resolveFlightController(
@@ -78,30 +121,53 @@ public class DroneService {
     ) {
       return null;
     }
-    return flightControllerRepository.getReferenceById(
-      drone.getFlightController().getId()
-    );
+    return flightControllerRepository
+      .findById(drone.getFlightController().getId())
+      .orElseThrow(() ->
+        new NotFoundException(
+          "FlightController not found with ID: " +
+            drone.getFlightController().getId()
+        )
+      );
   }
 
   private com.drones.back.entities.Camera resolveCamera(DroneDto drone) {
     if (drone.getCamera() == null || drone.getCamera().getId() == null) {
       return null;
     }
-    return cameraRepository.getReferenceById(drone.getCamera().getId());
+    return cameraRepository
+      .findById(drone.getCamera().getId())
+      .orElseThrow(() ->
+        new NotFoundException(
+          "Camera not found with ID: " + drone.getCamera().getId()
+        )
+      );
   }
 
   private com.drones.back.entities.Frame resolveFrame(DroneDto drone) {
     if (drone.getFrame() == null || drone.getFrame().getId() == null) {
       return null;
     }
-    return frameRepository.getReferenceById(drone.getFrame().getId());
+    return frameRepository
+      .findById(drone.getFrame().getId())
+      .orElseThrow(() ->
+        new NotFoundException(
+          "Frame not found with ID: " + drone.getFrame().getId()
+        )
+      );
   }
 
   private com.drones.back.entities.Battery resolveBattery(DroneDto drone) {
     if (drone.getBattery() == null || drone.getBattery().getId() == null) {
       return null;
     }
-    return batteryRepository.getReferenceById(drone.getBattery().getId());
+    return batteryRepository
+      .findById(drone.getBattery().getId())
+      .orElseThrow(() ->
+        new NotFoundException(
+          "Battery not found with ID: " + drone.getBattery().getId()
+        )
+      );
   }
 
   private void validateDrone(DroneDto drone) {
@@ -109,15 +175,15 @@ public class DroneService {
       log.warn(
         "Drone validation failed: videoLinkType is required but was null"
       );
-      throw new IllegalArgumentException("videoLinkType is required");
+      throw new ValidationException("videoLinkType is required");
     }
     if (drone.getPropsCount() == null || drone.getPropsCount() <= 0) {
       log.warn("Drone validation failed: propsCount must be greater than 0");
-      throw new IllegalArgumentException("propsCount must be greater than 0");
+      throw new ValidationException("propsCount must be greater than 0");
     }
     if (drone.getName() == null || drone.getName().isBlank()) {
       log.warn("Drone validation failed: name is required");
-      throw new IllegalArgumentException("name is required");
+      throw new ValidationException("name is required");
     }
   }
 }

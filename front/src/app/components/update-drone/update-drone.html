@@ -1,0 +1,98 @@
+<p-button title="edit drone" icon="pi pi-pencil" [rounded]="true" [text]="true" severity="info" (click)="openDialog()"></p-button>
+
+<p-dialog [(visible)]="isDialogVisible" [modal]="true" [header]="'Edit Drone: ' + drone()?.name" [style]="{ 'width': '90vw', 'max-width': '700px' }" [contentStyle]="{ 'padding': '0' }">
+    <div class="card flex flex-col gap-6" *ngIf="editingDrone">
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-4" (ngSubmit)="saveDrone()">
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-tag"></i>
+                </p-inputgroup-addon>
+                <input pInputText [(ngModel)]="editingDrone!.name" name="name" placeholder="Drone name" />
+            </p-inputgroup>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-send"></i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="editingDrone!.videoLinkType" name="videoLinkType" [options]="videoLinkTypes" placeholder="Video link type" appendTo="body" />
+            </p-inputgroup>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:col-span-2">
+                <p-inputgroup>
+                    <p-inputgroup-addon>
+                        <i class="pi pi-bolt"></i>
+                    </p-inputgroup-addon>
+                    <p-select [(ngModel)]="editingDrone!.prop" name="prop" [options]="(propOptions$ | async) ?? []" optionLabel="model" placeholder="Prop" [showClear]="true" appendTo="body" />
+                </p-inputgroup>
+
+                <p-inputgroup>
+                    <p-inputgroup-addon>
+                        <i class="pi pi-hashtag"></i>
+                    </p-inputgroup-addon>
+                    <p-inputnumber [(ngModel)]="editingDrone!.propsCount" name="propsCount" [min]="1" [useGrouping]="false" placeholder="Props count" />
+                </p-inputgroup>
+            </div>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-gauge"></i>
+                </p-inputgroup-addon>
+                <p-inputnumber [(ngModel)]="editingDrone!.weightGrams" name="weightGrams" [min]="0" [useGrouping]="false" placeholder="Weight (g)" />
+            </p-inputgroup>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-arrows-alt"></i>
+                </p-inputgroup-addon>
+                <p-inputnumber [(ngModel)]="editingDrone!.wheelbaseMm" name="wheelbaseMm" [min]="0" [useGrouping]="false" placeholder="Wheelbase (mm)" />
+            </p-inputgroup>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-clock"></i>
+                </p-inputgroup-addon>
+                <p-inputnumber [(ngModel)]="editingDrone!.flightTimeMinutes" name="flightTimeMinutes" [min]="0" [useGrouping]="false" placeholder="Flight time (min)" />
+            </p-inputgroup>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-cog"></i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="editingDrone!.motor" name="motor" [options]="(motorOptions$ | async) ?? []" optionLabel="model" placeholder="Motor" [showClear]="true" appendTo="body" />
+            </p-inputgroup>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-microchip"></i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="editingDrone!.flightController" name="flightController" [options]="(flightControllerOptions$ | async) ?? []" optionLabel="model" placeholder="Flight controller" [showClear]="true" appendTo="body" />
+            </p-inputgroup>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-video"></i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="editingDrone!.camera" name="camera" [options]="(cameraOptions$ | async) ?? []" optionLabel="model" placeholder="Camera" [showClear]="true" appendTo="body" />
+            </p-inputgroup>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-box"></i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="editingDrone!.frame" name="frame" [options]="(frameOptions$ | async) ?? []" optionLabel="model" placeholder="Frame" [showClear]="true" appendTo="body" />
+            </p-inputgroup>
+
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <i class="pi pi-battery"></i>
+                </p-inputgroup-addon>
+                <p-select [(ngModel)]="editingDrone!.battery" name="battery" [options]="(batteryOptions$ | async) ?? []" optionLabel="model" placeholder="Battery" [showClear]="true" appendTo="body" />
+            </p-inputgroup>
+
+            <div class="flex gap-2 justify-end md:col-span-2 mt-4">
+                <button pButton type="button" label="Cancel" severity="secondary" (click)="closeDialog()"></button>
+                <button pButton type="submit" label="Save changes" icon="pi pi-check"></button>
+            </div>
+        </form>
+    </div>
+</p-dialog>
