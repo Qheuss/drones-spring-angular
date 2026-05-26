@@ -1,16 +1,10 @@
 package com.drones.back.services;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.drones.back.dto.DroneDto;
-import com.drones.back.dto.DtoMapper;
 import com.drones.back.entities.Drone;
 import com.drones.back.exceptions.NotFoundException;
 import com.drones.back.exceptions.ValidationException;
+import com.drones.back.mappers.DroneMapper;
 import com.drones.back.repositories.BatteryRepository;
 import com.drones.back.repositories.CameraRepository;
 import com.drones.back.repositories.DroneRepository;
@@ -18,9 +12,12 @@ import com.drones.back.repositories.FlightControllerRepository;
 import com.drones.back.repositories.FrameRepository;
 import com.drones.back.repositories.MotorRepository;
 import com.drones.back.repositories.PropRepository;
-
+import java.util.List;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -28,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DroneService {
 
   private final DroneRepository repository;
+  private final DroneMapper droneMapper;
   private final PropRepository propRepository;
   private final MotorRepository motorRepository;
   private final FlightControllerRepository flightControllerRepository;
@@ -36,26 +34,21 @@ public class DroneService {
   private final BatteryRepository batteryRepository;
 
   public List<DroneDto> findAll() {
-    return repository.findAll().stream().map(DtoMapper::toDto).toList();
+    return repository.findAll().stream().map(droneMapper::toDto).toList();
   }
 
   public Optional<DroneDto> findById(Long id) {
-    return repository.findById(id).map(DtoMapper::toDto);
+    return repository.findById(id).map(droneMapper::toDto);
   }
 
   @Transactional
   public DroneDto addDrone(DroneDto drone) {
     validateDrone(drone);
-    Drone entity = DtoMapper.toEntity(drone);
-    entity.setProp(resolveProp(drone));
-    entity.setMotor(resolveMotor(drone));
-    entity.setFlightController(resolveFlightController(drone));
-    entity.setCamera(resolveCamera(drone));
-    entity.setFrame(resolveFrame(drone));
-    entity.setBattery(resolveBattery(drone));
+    Drone entity = droneMapper.toEntity(drone);
+    applyRelations(entity, drone);
     Drone savedDrone = repository.save(entity);
     log.debug("Drone saved with ID: {}", savedDrone.getId());
-    return DtoMapper.toDto(savedDrone);
+    return droneMapper.toDto(savedDrone);
   }
 
   public void deleteById(Long id) {
@@ -73,30 +66,38 @@ public class DroneService {
     return repository
       .findById(id)
       .map(existing -> {
-        existing.setName(drone.getName());
-        existing.setVideoLinkType(drone.getVideoLinkType());
-        existing.setPropsCount(drone.getPropsCount());
-        existing.setWeightGrams(drone.getWeightGrams());
-        existing.setWheelbaseMm(drone.getWheelbaseMm());
-        existing.setFlightTimeMinutes(drone.getFlightTimeMinutes());
-        existing.setIsDeleted(
-          drone.getIsDeleted() == null
-            ? existing.getIsDeleted()
-            : drone.getIsDeleted()
-        );
-        existing.setProp(resolveProp(drone));
-        existing.setMotor(resolveMotor(drone));
-        existing.setFlightController(resolveFlightController(drone));
-        existing.setCamera(resolveCamera(drone));
-        existing.setFrame(resolveFrame(drone));
-        existing.setBattery(resolveBattery(drone));
+        copyMutableFields(existing, drone);
+        applyRelations(existing, drone);
         Drone updated = repository.save(existing);
         log.debug("Drone updated with ID: {}", updated.getId());
-        return DtoMapper.toDto(updated);
+        return droneMapper.toDto(updated);
       })
       .orElseThrow(() ->
         new NotFoundException("Drone not found with ID: " + id)
       );
+  }
+
+  private void applyRelations(Drone entity, DroneDto drone) {
+    entity.setProp(resolveProp(drone));
+    entity.setMotor(resolveMotor(drone));
+    entity.setFlightController(resolveFlightController(drone));
+    entity.setCamera(resolveCamera(drone));
+    entity.setFrame(resolveFrame(drone));
+    entity.setBattery(resolveBattery(drone));
+  }
+
+  private void copyMutableFields(Drone entity, DroneDto drone) {
+    entity.setName(drone.getName());
+    entity.setVideoLinkType(drone.getVideoLinkType());
+    entity.setPropsCount(drone.getPropsCount());
+    entity.setWeightGrams(drone.getWeightGrams());
+    entity.setWheelbaseMm(drone.getWheelbaseMm());
+    entity.setFlightTimeMinutes(drone.getFlightTimeMinutes());
+    entity.setIsDeleted(
+      drone.getIsDeleted() == null
+        ? entity.getIsDeleted()
+        : drone.getIsDeleted()
+    );
   }
 
   private com.drones.back.entities.Prop resolveProp(DroneDto drone) {
