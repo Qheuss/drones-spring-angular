@@ -1,4 +1,4 @@
-<p-button title="Trash" icon="pi pi-trash" [rounded]="true" [text]="true" severity="secondary" (click)="openDialog()"></p-button>
+<p-button title="Trash" icon="pi pi-trash" label="Trash" [rounded]="true" [text]="true" severity="secondary" (click)="openDialog()"></p-button>
 
 <p-dialog [(visible)]="isDialogVisible" [modal]="true" [header]="'Trash'" [style]="{ 'width': '90vw', 'max-width': '700px' }" [contentStyle]="{ 'padding': '0' }">
     <div class="card flex flex-col gap-6 p-4">
