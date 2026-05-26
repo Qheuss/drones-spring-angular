@@ -44,7 +44,8 @@ export class AddDroneComponent {
         frame: null,
         battery: null,
         videoLinkType: VideoLinkType.DIGITAL,
-        propsCount: 4
+        propsCount: 4,
+        isDeleted: false
     };
 
     propOptions$ = this.propService.getAll();

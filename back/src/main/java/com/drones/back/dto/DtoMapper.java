@@ -166,6 +166,7 @@ public final class DtoMapper {
     dto.setWeightGrams(drone.getWeightGrams());
     dto.setWheelbaseMm(drone.getWheelbaseMm());
     dto.setFlightTimeMinutes(drone.getFlightTimeMinutes());
+    dto.setIsDeleted(drone.getIsDeleted());
     return dto;
   }
 
@@ -180,6 +181,9 @@ public final class DtoMapper {
     drone.setWeightGrams(dto.getWeightGrams());
     drone.setWheelbaseMm(dto.getWheelbaseMm());
     drone.setFlightTimeMinutes(dto.getFlightTimeMinutes());
+    drone.setIsDeleted(
+      dto.getIsDeleted() == null ? Boolean.FALSE : dto.getIsDeleted()
+    );
     return drone;
   }
 }

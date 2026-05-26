@@ -1,6 +1,12 @@
+@let data = (nonDeletedDrones$ | async) ?? [];
+@let dataDeleted = (deletedDrones$ | async) ?? [];
+
 <div class="card">
-    <app-add-drone (droneAdded)="onDroneAdded()"></app-add-drone>
-    <p-table [value]="(drones$ | async) ?? []" [tableStyle]="{ 'min-width': '50rem' }">
+    <div class="flex items-center mb-4 w-full gap-2">
+        <app-add-drone class="w-full" (droneAdded)="onDroneAdded()"></app-add-drone>
+        <app-trash [deletedDrones]="dataDeleted" (droneRestored)="onDroneRestored($event)"></app-trash>
+    </div>
+    <p-table [value]="data" [tableStyle]="{ 'min-width': '50rem' }">
         <ng-template #header>
             <tr>
                 <th></th>

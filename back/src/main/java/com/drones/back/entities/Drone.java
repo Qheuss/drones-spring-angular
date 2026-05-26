@@ -62,4 +62,6 @@ public class Drone {
   private Integer wheelbaseMm;
 
   private Integer flightTimeMinutes;
+
+  private Boolean isDeleted;
 }

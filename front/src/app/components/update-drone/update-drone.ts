@@ -66,7 +66,8 @@ export class UpdateDrone {
                 propsCount: currentDrone.propsCount,
                 weightGrams: currentDrone.weightGrams,
                 wheelbaseMm: currentDrone.wheelbaseMm,
-                flightTimeMinutes: currentDrone.flightTimeMinutes
+                flightTimeMinutes: currentDrone.flightTimeMinutes,
+                isDeleted: currentDrone.isDeleted
             };
             this.isDialogVisible = true;
         }

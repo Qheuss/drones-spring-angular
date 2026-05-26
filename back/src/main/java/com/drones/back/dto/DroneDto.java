@@ -33,4 +33,6 @@ public class DroneDto {
   private Integer wheelbaseMm;
 
   private Integer flightTimeMinutes;
+
+  private Boolean isDeleted;
 }

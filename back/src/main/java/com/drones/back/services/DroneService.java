@@ -1,5 +1,11 @@
 package com.drones.back.services;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.drones.back.dto.DroneDto;
 import com.drones.back.dto.DtoMapper;
 import com.drones.back.entities.Drone;
@@ -12,12 +18,9 @@ import com.drones.back.repositories.FlightControllerRepository;
 import com.drones.back.repositories.FrameRepository;
 import com.drones.back.repositories.MotorRepository;
 import com.drones.back.repositories.PropRepository;
-import java.util.List;
-import java.util.Optional;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @AllArgsConstructor
@@ -56,7 +59,12 @@ public class DroneService {
   }
 
   public void deleteById(Long id) {
-    repository.deleteById(id);
+    repository
+      .findById(id)
+      .ifPresent(drone -> {
+        drone.setIsDeleted(true);
+        repository.save(drone);
+      });
   }
 
   @Transactional
@@ -71,6 +79,11 @@ public class DroneService {
         existing.setWeightGrams(drone.getWeightGrams());
         existing.setWheelbaseMm(drone.getWheelbaseMm());
         existing.setFlightTimeMinutes(drone.getFlightTimeMinutes());
+        existing.setIsDeleted(
+          drone.getIsDeleted() == null
+            ? existing.getIsDeleted()
+            : drone.getIsDeleted()
+        );
         existing.setProp(resolveProp(drone));
         existing.setMotor(resolveMotor(drone));
         existing.setFlightController(resolveFlightController(drone));

@@ -20,4 +20,5 @@ export interface IDrone {
     weightGrams?: number;
     wheelbaseMm?: number;
     flightTimeMinutes?: number;
+    isDeleted: boolean;
 }

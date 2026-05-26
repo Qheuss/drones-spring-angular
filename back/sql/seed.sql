@@ -89,7 +89,7 @@ INSERT INTO batteries (model, capacity_mah) VALUES ('LAVA II 1S 480mAh', 480);
 INSERT INTO batteries (model, capacity_mah) VALUES ('LAVA II 1S 580mAh', 580);
 INSERT INTO batteries (model, capacity_mah) VALUES ('LAVA 1S 450mAh 75C Battery', 450);
 
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Scout One',
 	(SELECT id FROM flight_controllers WHERE model = 'Matek H743'),
@@ -102,9 +102,10 @@ VALUES (
 	4,
 	420,
 	220,
-	12
+	12,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Racer X',
 	(SELECT id FROM flight_controllers WHERE model = 'Betaflight F4'),
@@ -117,9 +118,10 @@ VALUES (
 	4,
 	560,
 	250,
-	8
+	8,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Cine Glide',
 	(SELECT id FROM flight_controllers WHERE model = 'SpeedyBee F7'),
@@ -132,9 +134,10 @@ VALUES (
 	4,
 	680,
 	280,
-	14
+	14,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Long Range Ghost',
 	(SELECT id FROM flight_controllers WHERE model = 'Holybro Kakute H7'),
@@ -147,9 +150,10 @@ VALUES (
 	2,
 	980,
 	330,
-	28
+	28,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Cargo Hawk',
 	(SELECT id FROM flight_controllers WHERE model = 'iFlight SucceX E'),
@@ -162,9 +166,10 @@ VALUES (
 	6,
 	1450,
 	420,
-	18
+	18,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Survey Pro',
 	(SELECT id FROM flight_controllers WHERE model = 'Mamba F405'),
@@ -177,9 +182,10 @@ VALUES (
 	8,
 	2500,
 	720,
-	42
+	42,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Thermal Sweep',
 	(SELECT id FROM flight_controllers WHERE model = 'Kiss FC'),
@@ -192,9 +198,10 @@ VALUES (
 	4,
 	3200,
 	860,
-	25
+	25,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Delivery Edge',
 	(SELECT id FROM flight_controllers WHERE model = 'Cube Orange+'),
@@ -207,9 +214,10 @@ VALUES (
 	4,
 	5200,
 	1000,
-	35
+	35,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Industrial Scan',
 	(SELECT id FROM flight_controllers WHERE model = 'Durandal'),
@@ -222,9 +230,10 @@ VALUES (
 	2,
 	4100,
 	680,
-	47
+	47,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Agri Titan',
 	(SELECT id FROM flight_controllers WHERE model = 'Pixhawk 6X'),
@@ -237,9 +246,10 @@ VALUES (
 	8,
 	8600,
 	2100,
-	60
+	60,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Air75 II Racing',
 	(SELECT id FROM flight_controllers WHERE model = 'Matrix 1S 5IN1 II Brushless Flight Controller'),
@@ -252,9 +262,10 @@ VALUES (
 	4,
 	20,
 	75,
-	7
+	7,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Air75 II Freestyle',
 	(SELECT id FROM flight_controllers WHERE model = 'Matrix 1S 5IN1 II Brushless Flight Controller'),
@@ -267,9 +278,10 @@ VALUES (
 	4,
 	21,
 	75,
-	7
+	7,
+	false
 );
-INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes)
+INSERT INTO drones (name, flight_controller_id, camera_id, frame_id, battery_id, motor_id, prop_id, video_link_type, props_count, weight_grams, wheelbase_mm, flight_time_minutes, is_deleted)
 VALUES (
 	'Air75 II Champion',
 	(SELECT id FROM flight_controllers WHERE model = 'Matrix 1S 5IN1 II Brushless Flight Controller'),
@@ -282,5 +294,6 @@ VALUES (
 	4,
 	20,
 	75,
-	7
+	7,
+	false
 );

@@ -1,0 +1,20 @@
+<p-button title="Trash" icon="pi pi-trash" [rounded]="true" [text]="true" severity="secondary" (click)="openDialog()"></p-button>
+
+<p-dialog [(visible)]="isDialogVisible" [modal]="true" [header]="'Trash'" [style]="{ 'width': '90vw', 'max-width': '700px' }" [contentStyle]="{ 'padding': '0' }">
+    <div class="card flex flex-col gap-6 p-4">
+        <ng-container *ngIf="deletedDrones.length; else empty">
+            <ul class="space-y-3">
+                <li *ngFor="let d of deletedDrones" class="flex items-center justify-between p-3 border rounded">
+                    <div>
+                        <div class="font-bold">{{ d.name || 'Unnamed drone' }}</div>
+                        <div class="text-sm text-gray-500">{{ d.id }}</div>
+                    </div>
+                    <p-button title="Restore drone" icon="pi pi-recycle" [rounded]="true" [text]="true" severity="success" (click)="restoreDrone(d)"></p-button>
+                </li>
+            </ul>
+        </ng-container>
+        <ng-template #empty>
+            <p class="text-center text-lg font-bold">No items in the trash.</p>
+        </ng-template>
+    </div>
+</p-dialog>
