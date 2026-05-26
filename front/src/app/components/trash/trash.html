@@ -9,7 +9,7 @@
                         <div class="font-bold">{{ d.name || 'Unnamed drone' }}</div>
                         <div class="text-sm text-gray-500">{{ d.id }}</div>
                     </div>
-                    <p-button title="Restore drone" icon="pi pi-recycle" [rounded]="true" [text]="true" severity="success" (click)="restoreDrone(d)"></p-button>
+                    <p-button title="Restore drone" label="Restore" [rounded]="true" [text]="true" severity="success" (click)="restoreDrone(d)"></p-button>
                 </li>
             </ul>
         </ng-container>
